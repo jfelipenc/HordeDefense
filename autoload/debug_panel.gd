@@ -1,10 +1,10 @@
 extends CanvasLayer
-## Debug panel (M0.6): F1 or a 3-finger tap toggles it. Actions are stubs that
-## publish on EventBus / GameState until the systems they drive exist.
+## Debug panel: F1 or a 3-finger tap toggles it. Actions publish on EventBus /
+## GameState; the active Battle reacts to the requests.
 
 var _panel: PanelContainer
 var _wave_box: SpinBox
-var _section_box: SpinBox
+var _stage_box: SpinBox
 var _fast: bool = false
 var _touches := {}
 
@@ -22,8 +22,11 @@ func toggle() -> void:
 func spawn_wave(wave: int) -> void:
 	EventBus.debug_spawn_wave.emit(wave)
 
-func set_section(section: int) -> void:
-	GameState.current_section = section
+func set_stage(stage: int) -> void:
+	GameState.current_stage = stage
+
+func skip_phase() -> void:
+	EventBus.debug_skip_phase.emit()
 
 func add_gold(amount: int) -> void:
 	GameState.add_gold(amount)
@@ -56,10 +59,11 @@ func _build_ui() -> void:
 	var box := VBoxContainer.new()
 	_panel.add_child(box)
 	box.add_child(_label("DEBUG"))
-	_wave_box = _spin(1, 99, 1)
+	_wave_box = _spin(1, 20, 1)
 	box.add_child(_row("Wave", _wave_box, "Spawn", func(): spawn_wave(int(_wave_box.value))))
-	_section_box = _spin(1, 30, 1)
-	box.add_child(_row("Section", _section_box, "Set", func(): set_section(int(_section_box.value))))
+	_stage_box = _spin(1, 30, 1)
+	box.add_child(_row("Stage", _stage_box, "Set", func(): set_stage(int(_stage_box.value))))
+	box.add_child(_button("Skip phase", skip_phase))
 	box.add_child(_button("+1000 gold", func(): add_gold(1000)))
 	box.add_child(_button("Toggle 4x speed", toggle_speed))
 

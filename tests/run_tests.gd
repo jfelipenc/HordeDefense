@@ -1,13 +1,25 @@
 extends SceneTree
 ## Headless test runner: godot --headless --path . -s res://tests/run_tests.gd
+## Runs every tests/test_*.gd. Pass a name after `--` to run one suite, e.g. `-- test_formation`.
 
 var _failures: int = 0
 var _passed: int = 0
 
 func _initialize() -> void:
 	await process_frame  # let the tree finish starting so _ready runs on added nodes
-	for path in ["res://tests/test_gate_math.gd", "res://tests/test_resources.gd", "res://tests/test_formation.gd", "res://tests/test_squad.gd", "res://tests/test_gate_run.gd", "res://tests/test_handoff.gd", "res://tests/test_data_classes.gd", "res://tests/test_autoloads.gd", "res://tests/test_scene_swapper.gd", "res://tests/test_debug_panel.gd", "res://tests/test_assets.gd"]:
-		var suite = load(path).new()
+	var only := OS.get_cmdline_user_args()
+	var paths: Array = []
+	for f in DirAccess.get_files_at("res://tests"):
+		if f.begins_with("test_") and f.ends_with(".gd") and (only.is_empty() or f.get_basename() in only):
+			paths.append("res://tests/" + f)
+	paths.sort()
+	for path in paths:
+		var script = load(path)
+		if script == null or not script.can_instantiate():
+			_failures += 1
+			printerr("FAIL: could not load " + path)
+			continue
+		var suite = script.new()
 		suite.t = self
 		for m in suite.get_method_list():
 			if String(m.name).begins_with("test_"):

@@ -15,11 +15,20 @@ func test_spawn_wave_emits_on_event_bus() -> void:
 	bus.debug_spawn_wave.disconnect(cb)
 	t.eq(_waves, [3], "wave 3 requested")
 
-func test_set_section_updates_game_state() -> void:
+func test_set_stage_updates_game_state() -> void:
 	var gs = t.root.get_node("GameState")
-	_panel().set_section(7)
-	t.eq(gs.current_section, 7, "section set")
+	_panel().set_stage(7)
+	t.eq(gs.current_stage, 7, "stage set")
 	gs.reset()
+
+func test_skip_phase_emits_on_event_bus() -> void:
+	_waves.clear()
+	var bus = t.root.get_node("EventBus")
+	var cb := func(): _waves.append(true)
+	bus.debug_skip_phase.connect(cb)
+	_panel().skip_phase()
+	bus.debug_skip_phase.disconnect(cb)
+	t.eq(_waves, [true], "skip phase requested")
 
 func test_add_gold_updates_game_state() -> void:
 	var gs = t.root.get_node("GameState")

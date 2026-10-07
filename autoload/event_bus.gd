@@ -1,10 +1,12 @@
 extends Node
 
 signal enemy_killed
-signal wall_damaged
-signal wave_cleared
+signal wall_damaged(section: int, amount: float)
+signal wave_started(wave: int)
+signal wave_cleared(wave: int)
+signal phase_cleared(phase: int)
+signal regroup_started(phase: int)
 signal battle_ended(victory: bool)
-signal gate_passed(gate: GateData)
-signal gate_run_finished(count: int, buffs: Dictionary, composition: Dictionary)
-## Debug panel requests (M0.6): stubs until the wave spawner exists.
+## Debug panel requests, handled by the active Battle.
 signal debug_spawn_wave(wave: int)
+signal debug_skip_phase
