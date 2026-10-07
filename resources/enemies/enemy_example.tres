@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/enemy_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"grunt"
+display_name = "Grunt"
+hp = 10.0
+speed = 1.0
+wall_damage = 1.0
+cost = 1
+first_section = 0

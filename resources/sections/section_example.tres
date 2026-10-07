@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SectionData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/section_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/enemy_data.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/gate_data.gd" id="3"]
+[ext_resource type="Resource" path="res://resources/enemies/enemy_example.tres" id="4"]
+[ext_resource type="Resource" path="res://resources/gates/gate_example.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+index = 0
+display_name = "Greenfields 1"
+region = &"greenfields"
+theme = &"forest"
+base_budget = 100.0
+wave_count = 5
+allowed_enemies = Array[ExtResource("2")]([ExtResource("4")])
+boss = ExtResource("4")
+gates_left = Array[ExtResource("3")]([ExtResource("5")])
+gates_right = Array[ExtResource("3")]([ExtResource("5")])
