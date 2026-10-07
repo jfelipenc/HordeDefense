@@ -20,3 +20,9 @@ window/handheld/orientation=1
 
 renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="mobile"
+
+[autoload]
+
+EventBus="*res://autoload/event_bus.gd"
+GameState="*res://autoload/game_state.gd"
+SaveManager="*res://autoload/save_manager.gd"
