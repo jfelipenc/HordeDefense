@@ -3,6 +3,11 @@ extends SceneTree
 ## Optional filter: ... -- test_project_settings
 
 func _initialize() -> void:
+	_run()
+
+
+func _run() -> void:
+	await process_frame  # let the tree finish startup (autoloads, root children)
 	var filter := ""
 	var args := OS.get_cmdline_user_args()
 	if args.size() > 0:
@@ -22,8 +27,10 @@ func _initialize() -> void:
 			if not String(m.name).begins_with("test_"):
 				continue
 			var t: TestCase = script.new()
-			t.call(m.name)
+			await t.call(m.name)
 			total += 1
+			if t.checks == 0:
+				t.failures.append("no assertions ran (script error?)")
 			if t.failures.is_empty():
 				print("PASS  %s::%s" % [f, m.name])
 			else:
