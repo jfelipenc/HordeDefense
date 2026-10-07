@@ -1993,7 +1993,7 @@ static func state(per_section: Array = [100, 40, 60], hero_id: String = "") -> B
 	return BattleState.new(tuning(), troop_defs(), TroopPool.new(counts), hero)
 
 ## Spawns one enemy at `dist` in `lane` with full stats.
-static func spawn(horde: Horde, id: String, lane: int, dist: float) -> void:
+static func spawn(horde, id: String, lane: int, dist: float) -> void:
 	horde.spawn(enemy(id), lane, dist, 1.0)
 ```
 
