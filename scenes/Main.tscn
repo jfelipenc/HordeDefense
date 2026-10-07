@@ -1,12 +1,15 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
+[ext_resource type="PackedScene" path="res://ui/DebugPanel.tscn" id="2"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1")
 start_scene = "res://scenes/placeholder_a.tscn"
 
 [node name="SceneHolder" type="Node" parent="."]
+
+[node name="DebugPanel" parent="." instance=ExtResource("2")]
 
 [node name="FadeLayer" type="CanvasLayer" parent="."]
 layer = 100
