@@ -1,0 +1,25 @@
+extends SceneTree
+## Headless test runner: godot --headless --path . -s res://tests/run_tests.gd
+
+var _failures: int = 0
+var _passed: int = 0
+
+func _initialize() -> void:
+	for path in ["res://tests/test_gate_math.gd", "res://tests/test_resources.gd"]:
+		var suite = load(path).new()
+		suite.t = self
+		for m in suite.get_method_list():
+			if String(m.name).begins_with("test_"):
+				suite.call(m.name)
+	print("RESULT: %d passed, %d failed" % [_passed, _failures])
+	quit(1 if _failures > 0 else 0)
+
+func check(cond: bool, msg: String) -> void:
+	if cond:
+		_passed += 1
+	else:
+		_failures += 1
+		printerr("FAIL: " + msg)
+
+func eq(actual, expected, msg: String) -> void:
+	check(actual == expected, "%s (expected %s, got %s)" % [msg, str(expected), str(actual)])

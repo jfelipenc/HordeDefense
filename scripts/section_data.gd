@@ -1,0 +1,9 @@
+class_name SectionData
+extends Resource
+## Describes one gate run: road, ordered gate pairs and blockers. Authored as .tres.
+
+@export var section_name: String = ""
+@export var road_length: float = 120.0
+@export var road_width: float = 8.0
+@export var gate_pairs: Array[GatePairData] = []
+@export var blockers: Array[BlockerData] = []
