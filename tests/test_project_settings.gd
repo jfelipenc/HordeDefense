@@ -13,3 +13,6 @@ func test_mobile_renderer() -> void:
 
 func test_portrait_orientation() -> void:
 	assert_eq(ProjectSettings.get_setting("display/window/handheld/orientation"), 1, "portrait")
+
+func test_etc2_astc_import_enabled_for_android() -> void:
+	assert_eq(ProjectSettings.get_setting("rendering/textures/vram_compression/import_etc2_astc"), true, "etc2/astc")
