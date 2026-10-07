@@ -11,6 +11,9 @@ config/features=PackedStringArray("4.7", "Mobile")
 
 EventBus="*res://autoload/event_bus.gd"
 GameState="*res://autoload/game_state.gd"
+SaveManager="*res://autoload/save_manager.gd"
+SceneSwapper="*res://autoload/scene_swapper.gd"
+DebugPanel="*res://autoload/debug_panel.gd"
 
 [display]
 
