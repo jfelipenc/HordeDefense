@@ -20,10 +20,20 @@ func _initialize() -> void:
 			printerr("FAIL: could not load " + path)
 			continue
 		var suite = script.new()
+		if suite == null:
+			_failures += 1
+			printerr("FAIL: could not instantiate " + path)
+			continue
 		suite.t = self
+		# A suite that failed to compile still instantiates; its test_ methods then abort at the first
+		# runtime error (e.g. a missing class) with no check recorded. A suite with no checks is a failure.
+		var before := _passed + _failures
 		for m in suite.get_method_list():
 			if String(m.name).begins_with("test_"):
 				await suite.call(m.name)
+		if _passed + _failures == before:
+			_failures += 1
+			printerr("FAIL: no checks ran in " + path)
 	print("RESULT: %d passed, %d failed" % [_passed, _failures])
 	quit(1 if _failures > 0 else 0)
 
