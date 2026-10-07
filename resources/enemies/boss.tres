@@ -4,9 +4,17 @@
 
 [resource]
 script = ExtResource("1")
-id = &"grunt"
-display_name = "Grunt"
+id = &"boss"
+display_name = "Boss"
+role = 3
+target = 0
 speed = 1.0
-hp = 20.0
-wall_damage = 2.0
-cost = 1
+hp = 40000.0
+dps = 250.0
+attack_range = 0.0
+troop_share = 0.0
+cost = 0
+model_scale = 2.5
+first_wave = 1
+spawn_weight = 1.0
+milestone = 4

@@ -4,15 +4,15 @@
 
 [resource]
 script = ExtResource("1")
-id = &"knight_captain"
-display_name = "Knight Captain"
-skill_name = "Shield Bash"
+id = &"ranger"
+display_name = "Ranger"
+skill_name = "Arrow Rain"
 skill_cooldown = 12.0
-skill_damage = 150.0
+skill_damage = 250.0
 skill_reach = 22.0
-skill_knockback = 3.0
-passive_text = "Infantry +15% HP"
-buff_kind = 0
-buff_stat = 0
+skill_knockback = 0.0
+passive_text = "Archers +10% damage"
+buff_kind = 2
+buff_stat = 1
 buff_towers = false
-buff_mult = 1.15
+buff_mult = 1.1

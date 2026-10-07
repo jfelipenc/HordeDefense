@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"raider"
+display_name = "Raider"
+role = 0
+target = 0
+speed = 3.0
+hp = 80.0
+dps = 8.0
+attack_range = 0.0
+troop_share = 0.0
+cost = 1
+model_scale = 1.0
+first_wave = 1
+spawn_weight = 6.0
+milestone = 0

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TroopData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/troop_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"archers_t1"
+display_name = "Archers"
+kind = 2
+tier = 1
+hp = 20.0
+dps = 5.0
+attack_range = 12.0
+color = Color(0.3, 0.85, 0.4, 1)

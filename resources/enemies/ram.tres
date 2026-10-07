@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ram"
+display_name = "Ram"
+role = 3
+target = 2
+speed = 1.5
+hp = 1500.0
+dps = 60.0
+attack_range = 0.0
+troop_share = 0.0
+cost = 8
+model_scale = 1.6
+first_wave = 1
+spawn_weight = 1.0
+milestone = 2
