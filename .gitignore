@@ -1,0 +1,9 @@
+# Godot 4
+.godot/
+*.translation
+*.apk
+*.aab
+/android/
+# Local scratch
+.superpowers/
+build/
