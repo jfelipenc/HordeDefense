@@ -5,6 +5,7 @@ config_version=5
 
 config/name="Hold the Hearth"
 run/main_scene="res://scenes/Main.tscn"
+config/icon="res://icon.svg"
 config/features=PackedStringArray("4.7", "Mobile")
 
 [autoload]
@@ -32,3 +33,4 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

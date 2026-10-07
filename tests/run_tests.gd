@@ -6,7 +6,7 @@ var _passed: int = 0
 
 func _initialize() -> void:
 	await process_frame  # let the tree finish starting so _ready runs on added nodes
-	for path in ["res://tests/test_gate_math.gd", "res://tests/test_resources.gd", "res://tests/test_formation.gd", "res://tests/test_squad.gd", "res://tests/test_gate_run.gd", "res://tests/test_handoff.gd", "res://tests/test_data_classes.gd", "res://tests/test_autoloads.gd", "res://tests/test_scene_swapper.gd", "res://tests/test_debug_panel.gd"]:
+	for path in ["res://tests/test_gate_math.gd", "res://tests/test_resources.gd", "res://tests/test_formation.gd", "res://tests/test_squad.gd", "res://tests/test_gate_run.gd", "res://tests/test_handoff.gd", "res://tests/test_data_classes.gd", "res://tests/test_autoloads.gd", "res://tests/test_scene_swapper.gd", "res://tests/test_debug_panel.gd", "res://tests/test_assets.gd"]:
 		var suite = load(path).new()
 		suite.t = self
 		for m in suite.get_method_list():
