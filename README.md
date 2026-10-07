@@ -22,3 +22,21 @@ Also: `tests/` (headless tests), `tools/` (asset import scripts), `docs/`.
 godot --headless --path . -s tests/run_tests.gd
 godot --headless --path . -s tests/run_tests.gd -- <file-filter>
 ```
+
+```
+python -I -m unittest discover -s tests/tools   # asset importer tests
+```
+
+## Assets
+
+Art comes from `D:/ASSETS/KayKit` (KayKit and Kenney, all CC0). The source folder is never modified.
+`tools/asset_manifest.json` lists exactly which files are used. To re-import after changing it:
+
+```
+python tools/import_assets.py
+godot --headless --path . --import
+godot --headless --path . -s tools/dump_clips.gd
+python tools/gen_assets_md.py
+```
+
+`assets/ASSETS.md` (generated) is the inventory: every imported file, its pack and license, plus the animation clip names of the `Rig_Medium` and `Rig_Large` files. `scenes/test/asset_test.tscn` plays Knight + a CombatMelee clip next to a Hexagon castle.

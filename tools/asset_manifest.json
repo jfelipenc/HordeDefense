@@ -1,0 +1,182 @@
+[
+ {
+  "pack": "KayKit_Adventurers_2.0_FREE",
+  "dest": "kaykit/adventurers",
+  "include": [
+   "Characters/gltf/*.glb"
+  ],
+  "license": "License.txt"
+ },
+ {
+  "pack": "KayKit_Adventurers_2.0_FREE",
+  "dest": "kaykit/adventurers/props",
+  "include": [
+   "Assets/gltf/sword_*.gltf",
+   "Assets/gltf/axe_*.gltf",
+   "Assets/gltf/dagger.gltf",
+   "Assets/gltf/bow*.gltf",
+   "Assets/gltf/arrow_bow*.gltf",
+   "Assets/gltf/crossbow_*.gltf",
+   "Assets/gltf/arrow_crossbow*.gltf",
+   "Assets/gltf/quiver.gltf",
+   "Assets/gltf/staff.gltf",
+   "Assets/gltf/wand.gltf",
+   "Assets/gltf/shield_*.gltf",
+   "Assets/gltf/spellbook_*.gltf"
+  ]
+ },
+ {
+  "pack": "KayKit_Skeletons_1.1_FREE",
+  "dest": "kaykit/skeletons",
+  "include": [
+   "characters/gltf/*.glb"
+  ],
+  "license": "License.txt"
+ },
+ {
+  "pack": "KayKit_Skeletons_1.1_FREE",
+  "dest": "kaykit/skeletons/props",
+  "include": [
+   "assets/gltf/Skeleton_*.gltf"
+  ]
+ },
+ {
+  "pack": "KayKit_Character_Animations_1.1",
+  "dest": "kaykit/animations/rig_medium",
+  "include": [
+   "Animations/gltf/Rig_Medium/*.glb"
+  ],
+  "license": "License.txt"
+ },
+ {
+  "pack": "KayKit_Character_Animations_1.1",
+  "dest": "kaykit/animations/rig_large",
+  "include": [
+   "Animations/gltf/Rig_Large/*.glb"
+  ]
+ },
+ {
+  "pack": "KayKit_Medieval_Hexagon_Pack_1.0_FREE",
+  "dest": "kaykit/hexagon/buildings",
+  "include": [
+   "Assets/gltf/buildings/blue/*.gltf",
+   "Assets/gltf/buildings/red/*.gltf",
+   "Assets/gltf/buildings/neutral/*.gltf"
+  ],
+  "license": "License.txt"
+ },
+ {
+  "pack": "KayKit_Medieval_Hexagon_Pack_1.0_FREE",
+  "dest": "kaykit/hexagon/tiles",
+  "include": [
+   "Assets/gltf/tiles/base/*.gltf",
+   "Assets/gltf/tiles/coast/*.gltf",
+   "Assets/gltf/tiles/rivers/*.gltf"
+  ]
+ },
+ {
+  "pack": "KayKit_Medieval_Hexagon_Pack_1.0_FREE",
+  "dest": "kaykit/hexagon/nature",
+  "include": [
+   "Assets/gltf/decoration/nature/*.gltf"
+  ]
+ },
+ {
+  "pack": "KayKit_Medieval_Hexagon_Pack_1.0_FREE",
+  "dest": "kaykit/hexagon/props",
+  "include": [
+   "Assets/gltf/decoration/props/*.gltf"
+  ]
+ },
+ {
+  "pack": "KayKit_Forest_Nature_Pack_1.0_FREE",
+  "dest": "kaykit/forest",
+  "include": [
+   "Assets/gltf/Tree*_Color1.gltf",
+   "Assets/gltf/Bush*_Color1.gltf",
+   "Assets/gltf/Rock*_Color1.gltf",
+   "Assets/gltf/Grass*_Color1.gltf",
+   "Assets/gltf/Grass_*.gltf"
+  ],
+  "license": "License.txt"
+ },
+ {
+  "pack": "KayKit_Dungeon_Pack_1.1_FREE",
+  "dest": "kaykit/dungeon",
+  "include": [
+   "Assets/gltf/barrier*.gltf",
+   "Assets/gltf/banner_blue.gltf",
+   "Assets/gltf/banner_red.gltf",
+   "Assets/gltf/banner_patternA_blue.gltf",
+   "Assets/gltf/banner_patternA_red.gltf",
+   "Assets/gltf/coin*.gltf",
+   "Assets/gltf/chest*.gltf",
+   "Assets/gltf/barrel*.gltf",
+   "Assets/gltf/crates*.gltf",
+   "Assets/gltf/torch*.gltf",
+   "Assets/gltf/wall_cracked.gltf",
+   "Assets/gltf/wall_broken.gltf"
+  ],
+  "license": "License.txt"
+ },
+ {
+  "pack": "kenney_ui-pack(1)",
+  "dest": "kenney/ui",
+  "include": [
+   "Font/*.ttf"
+  ],
+  "license": "License.txt"
+ },
+ {
+  "pack": "kenney_ui-pack(1)",
+  "dest": "kenney/ui/blue",
+  "include": [
+   "Vector/Blue/*.svg"
+  ]
+ },
+ {
+  "pack": "kenney_ui-pack(1)",
+  "dest": "kenney/ui/red",
+  "include": [
+   "Vector/Red/*.svg"
+  ]
+ },
+ {
+  "pack": "kenney_ui-pack(1)",
+  "dest": "kenney/ui/green",
+  "include": [
+   "Vector/Green/*.svg"
+  ]
+ },
+ {
+  "pack": "kenney_ui-pack(1)",
+  "dest": "kenney/ui/grey",
+  "include": [
+   "Vector/Grey/*.svg"
+  ]
+ },
+ {
+  "pack": "kenney_ui-pack(1)",
+  "dest": "kenney/ui/yellow",
+  "include": [
+   "Vector/Yellow/*.svg"
+  ]
+ },
+ {
+  "pack": "kenney_interface-sounds(1)",
+  "dest": "kenney/audio",
+  "include": [
+   "Audio/click_*.ogg",
+   "Audio/select_*.ogg",
+   "Audio/confirmation_*.ogg",
+   "Audio/error_*.ogg",
+   "Audio/drop_*.ogg",
+   "Audio/pluck_*.ogg",
+   "Audio/open_*.ogg",
+   "Audio/close_*.ogg",
+   "Audio/toggle_*.ogg",
+   "Audio/scroll_*.ogg"
+  ],
+  "license": "License.txt"
+ }
+]
