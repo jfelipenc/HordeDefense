@@ -1,0 +1,11 @@
+# Godot 4
+.godot/
+*.translation
+export_credentials.cfg
+*.apk
+*.aab
+build/
+.mono/
+# Claude / SDD scratch
+.superpowers/
+.claude/worktrees/
