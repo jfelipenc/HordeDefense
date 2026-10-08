@@ -29,6 +29,20 @@ func test_texts_during_an_assault() -> void:
 	t.eq(h.active_phase_index(), 3, "fourth panel highlighted")
 	h.queue_free()
 
+func test_a_defeat_keeps_the_phase_of_the_wave_it_happened_in() -> void:
+	var b := BattleFactory.create(600)
+	b.start()
+	b.ready()
+	b.debug_jump_to_wave(5)
+	b.state.damage_town_center(1.0e9)
+	b.tick(0.1)
+	var h := _hud(b)
+	t.eq(b.phase.state, PhaseMachine.State.LOST, "battle lost")
+	t.eq(h.wave_text(), "Wave 5/20", "wave counter")
+	t.eq(h.phase_text(), "Phase 1/4", "defeat screen still says phase 1")
+	t.eq(h.active_phase_index(), 0, "first panel highlighted")
+	h.queue_free()
+
 func test_hero_button_is_off_in_a_regroup_and_on_in_an_assault() -> void:
 	var b := BattleFactory.create(600)
 	b.start()

@@ -27,7 +27,8 @@ func is_over() -> bool:
 
 ## The phase the player is in, or about to enter during a regroup.
 func current_phase() -> int:
-	return WaveBudget.phase_of(maxi(wave, 1) if state == State.ASSAULT or state == State.BREATHER else wave + 1, tuning)
+	var in_wave := state == State.ASSAULT or state == State.BREATHER or state == State.LOST
+	return WaveBudget.phase_of(maxi(wave, 1) if in_wave else wave + 1, tuning)
 
 ## Opens the battle with its first regroup.
 func start() -> void:
@@ -66,7 +67,7 @@ func jump_to_wave(n: int) -> void:
 
 ## Debug: jump to the first wave of the next phase (or the last wave if already in phase 4).
 func skip_phase() -> void:
-	var next_first := WaveBudget.phase_of(maxi(wave, 1), tuning) * tuning.phase_length + 1
+	var next_first := current_phase() * tuning.phase_length + 1
 	jump_to_wave(mini(next_first, tuning.waves_per_battle))
 
 func _begin_wave() -> void:

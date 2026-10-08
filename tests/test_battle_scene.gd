@@ -107,7 +107,7 @@ func test_regroup_timeout_applies_the_players_choices_first() -> void:
 	s.regroup.set_ratio(UnitRole.Kind.CAVALRY, 0.0)
 	s.regroup.set_ratio(UnitRole.Kind.ARCHERS, 0.0)
 	s.regroup.set_tower_choice(1, 0, 3)
-	s.battle.phase.timer = 0.001
+	s.battle.phase.timer = 0.0
 	await t.process_frame
 	await t.process_frame
 	t.eq(s.battle.phase.wave, 1, "the timeout started the wave")

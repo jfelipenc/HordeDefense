@@ -152,3 +152,42 @@ func test_current_phase_during_an_assault_is_the_waves_phase() -> void:
 	t.eq(m.current_phase(), 1, "wave 5 is still phase 1")
 	m.jump_to_wave(6)
 	t.eq(m.current_phase(), 2, "wave 6")
+
+func test_a_loss_keeps_the_phase_of_the_wave_it_happened_in() -> void:
+	var m := _machine()
+	m.start()
+	m.jump_to_wave(5)
+	m.lose()
+	t.eq(m.state, PhaseMachine.State.LOST, "lost")
+	t.eq(m.current_phase(), 1, "lost during wave 5 is still phase 1")
+	var m2 := _machine()
+	m2.start()
+	m2.jump_to_wave(12)
+	m2.lose()
+	t.eq(m2.current_phase(), 3, "lost during wave 12 is phase 3")
+
+func test_skip_phase_from_the_regroup_after_a_milestone_skips_a_whole_phase() -> void:
+	var m := _machine()
+	m.start()
+	for w in 5:
+		_play_wave(m)
+	t.eq(m.state, PhaseMachine.State.REGROUP, "regroup after wave 5")
+	t.eq(m.wave, 5, "wave 5 cleared")
+	m.skip_phase()
+	t.eq(m.wave, 11, "skips phase 2 to wave 11")
+	var m2 := _machine()
+	m2.start()
+	m2.jump_to_wave(7)
+	m2.skip_phase()
+	t.eq(m2.wave, 11, "from wave 7 to wave 11")
+
+func test_jump_and_skip_are_ignored_once_the_battle_is_lost() -> void:
+	var m := _machine()
+	m.start()
+	m.jump_to_wave(8)
+	m.lose()
+	m.jump_to_wave(15)
+	t.eq(m.wave, 8, "jump ignored")
+	m.skip_phase()
+	t.eq(m.wave, 8, "skip ignored")
+	t.eq(m.state, PhaseMachine.State.LOST, "still lost")
