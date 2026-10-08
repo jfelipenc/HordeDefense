@@ -28,6 +28,27 @@ func test_enemy_instances_follow_the_horde() -> void:
 	t.eq(v.visible_enemy_count(), mini(b.horde.count(), BattleView.MAX_ENEMIES), "one instance per enemy")
 	v.queue_free()
 
+func test_a_ram_at_the_wall_is_drawn_inside_the_keep_not_in_the_wall() -> void:
+	var ram: EnemyData = load("res://resources/enemies/ram.tres")
+	var raider: EnemyData = load("res://resources/enemies/raider.tres")
+	# The placement rule itself (works headless, where MultiMesh transforms read back as identity).
+	t.check(BattleView.enemy_depth(ram, 0.0) > 3.0, "ram at the wall is drawn past it, in the Keep")
+	t.check(absf(BattleView.enemy_depth(raider, 0.0)) < 0.7, "raider at the wall stays at the wall")
+	t.check(absf(BattleView.enemy_depth(ram, 3.0) + 3.0) < 0.001, "continuous at 3 m: z = -3")
+	t.check(absf(BattleView.enemy_depth(ram, 0.0) - 4.0) < 0.001, "continuous at 0 m: z = +4")
+	t.check(absf(BattleView.enemy_depth(ram, 20.0) + 20.0) < 0.001, "far away it walks in as usual")
+	# The instance transforms, when a renderer is present (the headless dummy renderer stores none).
+	var b := BattleFactory.create(100)
+	var v := _view(b)
+	b.horde.spawn(ram, 1, 0.0, 1.0)
+	b.horde.spawn(raider, 1, 0.0, 1.0)
+	v.refresh()
+	if DisplayServer.get_name() != "headless":
+		var mm: MultiMesh = v._enemies.multimesh
+		t.check(mm.get_instance_transform(0).origin.z > 3.0, "drawn ram z is past the wall")
+		t.check(absf(mm.get_instance_transform(1).origin.z) < 0.7, "drawn raider z is at the wall")
+	v.queue_free()
+
 func test_enemy_instances_are_capped() -> void:
 	var b := BattleFactory.create(100)
 	var v := _view(b)

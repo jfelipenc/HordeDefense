@@ -12,6 +12,23 @@ func test_spawn_keeps_all_arrays_in_step() -> void:
 	t.eq(h.hp[0], 160.0, "HP scaled by the stat multiplier (80 x 2)")
 	t.eq(h.power[0], 2.0, "damage multiplier stored")
 	t.eq(h.from_side[0], 1, "side flag")
+	t.eq(h.jitter.size(), 1, "jitter stored")
+
+func test_jitter_follows_each_enemy_through_a_reap() -> void:
+	var h := Horde.new()
+	for d in [10.0, 20.0, 30.0, 40.0]:
+		Kit.spawn(h, "raider", 0, d)
+	t.eq(h.jitter.size(), h.count(), "jitter size after spawn")
+	t.check(h.jitter[0] != h.jitter[1] and h.jitter[1] != h.jitter[2] and h.jitter[2] != h.jitter[3], "consecutive spawns differ")
+	var before := {}
+	for i in h.count():
+		before[h.dist[i]] = h.jitter[i]
+	h.hp[1] = 0.0  # the enemy at 20 m dies; the last one (40 m) takes its slot
+	t.eq(h.reap(), 1, "one reaped")
+	t.eq(h.jitter.size(), h.count(), "jitter size after reap")
+	t.eq(h.count(), 3, "three left")
+	for i in h.count():
+		t.eq(h.jitter[i], before[h.dist[i]], "enemy at %s m keeps its jitter" % h.dist[i])
 
 func test_enemies_walk_at_their_speed_and_stop_at_their_range() -> void:
 	var st := Kit.state()

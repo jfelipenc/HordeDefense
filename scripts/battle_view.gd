@@ -143,6 +143,13 @@ func _flat(color: Color, vertex_colors: bool = false) -> StandardMaterial3D:
 
 # --- per-frame updates --------------------------------------------------------
 
+## Depth (z) an enemy is drawn at. Walls are at z = 0 and the Town Center box spans z 5 to 8, so a
+## Keep striker (ram) walks in as usual until 3 m out, then passes through to just before the Keep (z 4).
+static func enemy_depth(e: EnemyData, dist: float) -> float:
+	if e.target == EnemyData.Target.TOWN_CENTER:
+		return -dist + (1.0 - clampf(dist / 3.0, 0.0, 1.0)) * 4.0
+	return -dist
+
 func _refresh_enemies() -> void:
 	var h := battle.horde
 	var n := mini(h.count(), MAX_ENEMIES)
@@ -150,11 +157,11 @@ func _refresh_enemies() -> void:
 	for i in n:
 		var e := h.types[i]
 		# Spread each lane's enemies sideways so a horde reads as a mass, not a queue.
-		var x: float = LANE_X[h.lane[i]] + (fposmod(i * 0.618034, 1.0) - 0.5) * 4.0
+		var x: float = LANE_X[h.lane[i]] + h.jitter[i] * 4.0
 		if h.from_side[i] == 1:
 			x += 8.0 * (h.dist[i] / battle.tuning.lane_length) * (-1.0 if h.lane[i] == 0 else 1.0)
 		var basis := Basis().scaled(Vector3.ONE * e.model_scale)
-		mm.set_instance_transform(i, Transform3D(basis, Vector3(x, 0.6 * e.model_scale, -h.dist[i])))
+		mm.set_instance_transform(i, Transform3D(basis, Vector3(x, 0.6 * e.model_scale, enemy_depth(e, h.dist[i]))))
 		mm.set_instance_color(i, ROLE_COLORS[e.role])
 	mm.visible_instance_count = n
 

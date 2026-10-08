@@ -11,6 +11,9 @@ var hp := PackedFloat32Array()
 var power := PackedFloat32Array()
 ## 1 if the enemy arrived from the side (flank), for the view only.
 var from_side := PackedByteArray()
+## Sideways offset in -0.5..0.5 fixed at spawn (the view scales it), so it survives swap-removal.
+var jitter := PackedFloat32Array()
+var _spawned: int = 0
 
 func count() -> int:
 	return types.size()
@@ -22,6 +25,8 @@ func spawn(enemy: EnemyData, spawn_lane: int, spawn_dist: float, stat_mult: floa
 	hp.append(enemy.hp * stat_mult)
 	power.append(stat_mult)
 	from_side.append(1 if side else 0)
+	jitter.append(fposmod(_spawned * 0.618034, 1.0) - 0.5)
+	_spawned += 1
 
 func count_in_lane(section: int) -> int:
 	var n := 0
@@ -138,9 +143,11 @@ func _remove(i: int) -> void:
 		hp[i] = hp[last]
 		power[i] = power[last]
 		from_side[i] = from_side[last]
+		jitter[i] = jitter[last]
 	types.pop_back()
 	lane.resize(last)
 	dist.resize(last)
 	hp.resize(last)
 	power.resize(last)
 	from_side.resize(last)
+	jitter.resize(last)
