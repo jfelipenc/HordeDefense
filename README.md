@@ -17,7 +17,7 @@ Godot 4.7 (Mobile renderer), portrait 1080x1920. A horde-defense game in the sty
 
 Open the project in Godot and press F5. The battle opens on the regroup screen: set the troop ratio and where each kind stands, pick towers, read the scout report, press Ready. During waves tap the hero skill (aims at the busiest lane) and the Sortie button of a section that has cavalry.
 
-Debug panel (debug builds): F1 or a 3-finger tap. It jumps to wave N, skips to the next phase, sets the stage, adds gold and toggles 4x speed.
+Debug panel (debug builds): F1 or a 3-finger tap. It jumps to wave N, skips to the next phase, sets the stage, adds gold and toggles 4x speed. The stage setter only stores `GameState.current_stage`; stage 1 is the only authored stage, so nothing reads it yet.
 
 ## Test
 
@@ -30,7 +30,7 @@ The second form runs one suite. Run `godot --headless --path . --import` once af
 
 ## Balance
 
-Every number is in `resources/tuning/default.tres` and the enemy, troop, tower and hero `.tres` files. To see how a setup plays out without opening the game:
+`resources/tuning/default.tres` holds the defaults from `scripts/tuning_data.gd` (override them in the Inspector); the enemy, troop, tower and hero `.tres` files hold explicit numbers. To see how a setup plays out without opening the game:
 
 ```
 godot --headless --path . -s res://tools/sim_battle.gd

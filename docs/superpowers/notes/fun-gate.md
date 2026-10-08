@@ -4,11 +4,11 @@ Status: PENDING HUMAN PLAYTEST (simulated criteria: FAIL)
 
 Date: 2026-10-07
 
-The simulated criteria FAIL on one point only, and marginally: the two 600-troop tower wins take 370 s and 380 s, which is 10 to 20 s over the 6 minute ceiling (details below). All other simulated criteria pass. No resource files were tuned. The Fun Gate itself (PASS or FAIL) is decided by a human after the hand playtest; nothing in this note decides it.
+The simulated criteria FAIL on one point only: battle length. The plan's criterion is 4 to 6 minutes, and the two 600-troop tower wins take 370 s and 380 s, 10 to 20 s over that ceiling. The spec's binding target is stricter, 4 to 5 minutes including regroups, and against it no simulated run passes (details below). All other simulated criteria pass. No resource files were tuned. The Fun Gate itself (PASS or FAIL) is decided by a human after the hand playtest; nothing in this note decides it.
 
 ## Simulated balance
 
-Run on 2026-10-07 with `godot --headless --path . -s res://tools/sim_battle.gd` (Godot 4.7.2). `BattleSim.run(battle, true)`: regroup countdowns are skipped, and the hero skill and cavalry sortie are fired on the busiest lane. All runs use the default `Formation` unless named.
+Run on 2026-10-07 with `godot --headless --path . -s res://tools/sim_battle.gd` (Godot 4.7.2). `BattleSim.run(battle, true)`: regroup countdowns are skipped, and the hero skill and cavalry sortie are fired on the busiest lane. The probe's "default" rows use the default `Formation` (ratio 50/20/30 infantry/cavalry/archers, shares spread evenly). The game does not open on that: it opens on the recommended formation for the first phase, which is all raiders, ratio `[2.5, 1.0, 6.5]` (65% archers); the last row below is that start. The "recommended" row fixes the hero as `knight_captain` and uses no towers.
 
 ```
 cap 0, default, no towers          -> LOSE wave  1  tc     0  troops    0  kills    74    36s
@@ -22,6 +22,7 @@ cap 600, default, crossbow_tower   -> WIN  wave 20  tc  1350  troops  596  kills
 cap 600, default, cannon_tower     -> WIN  wave 20  tc   900  troops  597  kills  4229   380s
 cap 600, archer-heavy              -> LOSE wave 20  tc     0  troops  599  kills  4228   367s
 cap 600, all infantry              -> LOSE wave 15  tc     0  troops  572  kills  2714   296s
+cap 600, recommended (game start)  -> LOSE wave 20  tc     0  troops  575  kills  4228   375s
 ```
 
 Setup notes: the default runs use the `knight_captain` hero. "archer-heavy" is ratio `[3, 1, 6]` with the `ranger` hero and `arrow_tower`. "all infantry" is ratio `[1, 0, 0]` with `knight_captain` and no tower. Town Center full HP is 5000 (`tc 5000`).
@@ -36,12 +37,14 @@ Source: Task 15 brief, Step 2.
 4. 2500 troops win without trouble: PASS. Win, Town Center 5000 of 5000, 999 to 2500 troops intact. (1500 troops also win at full Town Center HP.)
 5. Towers matter, at least one tower type turns the 600-troop loss into a win: PASS. `crossbow_tower` wins (Town Center 1350) and `cannon_tower` wins (Town Center 900), against a loss with no tower. `arrow_tower` alone does not (loss, 390 s).
 6. Formation matters, an army with no cavalry and no hero cannot get past wave 15: PASS, with a caveat on the probe. The all-infantry army (no cavalry) loses at wave 15. The probe keeps the `knight_captain` hero (a stronger setup than the criterion describes) and it still dies at the siege. A strictly hero-less run is not in the probe table.
-7. A battle takes 4 to 6 minutes of simulated time (applies to winning runs; losing runs are informational): FAIL, marginal.
-   - Winning runs at or under 360 s: 1000 troops 351 s, 1500 troops 334 s, 2500 troops 317 s. All inside 4 to 6 minutes.
-   - Winning runs over 360 s: 600 + crossbow 370 s (6:10) and 600 + cannon 380 s (6:20). Both exceed the ceiling by 10 to 20 s.
-   - Informational, losing runs: 389 s (600, no towers), 390 s (arrow tower), 367 s (archer-heavy). Losing runs last longer because the final waves are fought against a collapsing defence.
+7. A battle takes 4 to 6 minutes of simulated time (applies to winning runs; losing runs are informational): FAIL, marginal against the plan's 4 to 6 minutes.
+   - The binding target is the spec's: 4 to 5 minutes including regroups. The plan's 4 to 6 minute criterion is the looser one. Against 4 to 5 minutes no simulated run passes: the fastest win is 317 s (2500 troops), already over 300 s, before up to about 60 s of skipped regroup countdowns (four regroups of up to 15 s) are added back.
+   - Against the plan's 6 minutes: winning runs at or under 360 s are 1000 troops 351 s, 1500 troops 334 s, 2500 troops 317 s. Winning runs over 360 s are 600 + crossbow 370 s (6:10) and 600 + cannon 380 s (6:20), both over the ceiling by 10 to 20 s.
+   - Informational, losing runs: 389 s (600, no towers), 390 s (arrow tower), 367 s (archer-heavy), 375 s (recommended, game start). These are long because of the boss, not a collapsing defence: in every 600-troop loss kills are 4228 of 4229, so everything dies except one enemy (almost certainly the boss). The boss alone wears down the wall and the Town Center. Waves 1 to 19 never threaten a 600-troop army.
+   - So "the default 600 loses" and "towers matter" both come down to the boss's HP and damage: whether the army (and a tower) can burn the boss down before it wears the wall and Town Center away decides the battle.
    - The simulation skips regroup countdowns, so real play time will be longer still than these numbers.
-   - Overall criteria verdict is FAIL because of this item. It needs a controller ruling: accept the overrun or shorten stage timing (not done; resource files untouched per the controller's rule).
+   - Levers if the length has to come down (none applied): `spawn_window` (how long a wave takes to arrive), enemy speed, and `breather_seconds`.
+   - Overall criteria verdict stays FAIL. The controller ruled to leave the FAIL as is; resource files are untouched.
 
 Overall simulated criteria: FAIL (6 of 7 PASS; the time criterion misses by 10 to 20 s on 2 of 5 winning runs).
 
@@ -50,6 +53,8 @@ Overall simulated criteria: FAIL (6 of 7 PASS; the time criterion misses by 10 t
 With the starting numbers troops rarely die (they heal 60% of losses and most enemies die before reaching the wall), so the troop-loss tension the spec wants in phase 4 is weak. Raising Rider and Bowman damage against troops, or lowering troop HP, is the first lever to try. Do not change the milestone structure.
 
 The probe agrees: with `cap 600`, no towers, 498 of 600 troops are still alive at the loss, and every winning run ends with 99% to 100% of the army alive (troops 596 to 2500). Troop-loss pressure is weak.
+
+Two tuning facts for whoever picks this up. `resources/tuning/default.tres` stores no explicit values: every number is a script default in `scripts/tuning_data.gd`, so edit them in the Inspector (which then writes them into the `.tres`). And the Mage hero's `skill_reach` of 10 cannot reach an 18 m siege unit; this is latent, because the battle scene always uses `knight_captain`.
 
 ## Hand playtest
 

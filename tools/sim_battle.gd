@@ -13,6 +13,8 @@ func _initialize() -> void:
 	var all_inf := Formation.new()
 	all_inf.ratio = [1.0, 0.0, 0.0]
 	_report("cap 600, all infantry", BattleFactory.create(600, all_inf, "knight_captain", ""))
+	var recommended := Formation.recommended({UnitRole.Kind.INFANTRY: 1})
+	_report("cap 600, recommended (game start)", BattleFactory.create(600, recommended, "knight_captain", ""))
 	quit()
 
 func _report(label: String, battle: Battle) -> void:

@@ -413,6 +413,16 @@ Detailed tasks and sizes belong to the implementation plan, which comes after th
 - [x] One hero tap skill and the cavalry sortie, each with a cooldown
 - [ ] 200 enemies at 60 fps on a mid-range phone
 
+#### Deferred from M1–M3
+
+Not built in the first plan; the plan's self-review overstated coverage of sections 3 and 11.
+
+- [ ] Result-screen stars (section 3)
+- [ ] Pause button (section 11)
+- [ ] Kill counter on the battle HUD (section 1 pillar)
+- [ ] Distinct hero skill shapes (Ranger arrow-rain circle, Mage meteor burn): every skill is currently the same lane blast, and the Mage `skill_reach` of 10 cannot reach siege at 18 m
+- [ ] Hero selection UI (the scene always uses the Knight Captain)
+
 ### Scope risks
 
 - **Horde performance on mobile:** solve in the prototype, not later.
