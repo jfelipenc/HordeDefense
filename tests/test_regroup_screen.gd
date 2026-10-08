@@ -133,3 +133,14 @@ func test_the_summary_shows_the_resulting_counts() -> void:
 	r._process(0.0)
 	t.check(r._summary.text.contains("Left: I 50 C 20 A 30"), "even 50/20/30 over 300 troops")
 	r.queue_free()
+
+func test_the_formation_sliders_have_a_kind_header() -> void:
+	var b := BattleFactory.create(600)
+	b.start()
+	var r := _screen(b)
+	r.open()
+	var texts: Array = []
+	for l in r._kind_header_labels:
+		texts.append(l.text)
+	t.eq(texts, ["Infantry", "Cavalry", "Archers"], "headers name the three sliders in order")
+	r.queue_free()

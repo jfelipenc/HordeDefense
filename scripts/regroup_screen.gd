@@ -9,6 +9,8 @@ signal ready_pressed
 
 const SECTION_NAMES := ["Left", "Center", "Right"]
 const KIND_NAMES := ["Infantry", "Cavalry", "Archers"]
+const SECTION_LABEL_WIDTH := 150.0
+const SHARE_SLIDER_WIDTH := 170.0
 const MILESTONE_NAMES := {
 	WaveData.Milestone.FLANK: "Flank",
 	WaveData.Milestone.KEEP_STRIKE: "Keep strike",
@@ -30,6 +32,8 @@ var _ratio_sliders: Array[HSlider] = []
 var _share_sliders: Array = [[], [], []]
 ## _tower_pickers[section][slot]
 var _tower_pickers: Array = [[], [], []]
+## The "Infantry / Cavalry / Archers" captions over the share sliders.
+var _kind_header_labels: Array[Label] = []
 var _first_open := true
 
 func _ready() -> void:
@@ -132,13 +136,26 @@ func _build() -> void:
 	for k in 3:
 		_ratio_sliders.append(_slider_row(box, KIND_NAMES[k], 5.0 if k == 0 else (2.0 if k == 1 else 3.0), 10.0, 0.5))
 	box.add_child(_label("Where each kind stands", 40))
+	var header := HBoxContainer.new()
+	box.add_child(header)
+	var corner := _label("", 28)
+	corner.custom_minimum_size = Vector2(SECTION_LABEL_WIDTH, 0)
+	header.add_child(corner)
+	for k in 3:
+		var cap := _label(KIND_NAMES[k], 28)
+		cap.custom_minimum_size = Vector2(SHARE_SLIDER_WIDTH, 0)
+		header.add_child(cap)
+		_kind_header_labels.append(cap)
+	header.add_child(_label("Towers", 28))
 	for s in 3:
 		var row := HBoxContainer.new()
 		box.add_child(row)
-		row.add_child(_label(SECTION_NAMES[s], 34))
+		var section_label := _label(SECTION_NAMES[s], 34)
+		section_label.custom_minimum_size = Vector2(SECTION_LABEL_WIDTH, 0)
+		row.add_child(section_label)
 		for k in 3:
 			var slider := _make_slider(1.0, 4.0, 1.0)
-			slider.custom_minimum_size = Vector2(200, 60)
+			slider.custom_minimum_size = Vector2(SHARE_SLIDER_WIDTH, 60)
 			row.add_child(slider)
 			_share_sliders[s].append(slider)
 		var towers := HBoxContainer.new()
