@@ -6,9 +6,13 @@
 script = ExtResource("1")
 id = &"knight_captain"
 display_name = "Knight Captain"
-hp = 300.0
-damage = 8.0
-attack_interval = 1.2
 skill_name = "Shield Bash"
 skill_cooldown = 12.0
-passive_text = "Wall segments +15% HP"
+skill_damage = 150.0
+skill_reach = 22.0
+skill_knockback = 3.0
+passive_text = "Infantry +15% HP"
+buff_kind = 0
+buff_stat = 0
+buff_towers = false
+buff_mult = 1.15
