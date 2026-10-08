@@ -404,13 +404,13 @@ Detailed tasks and sizes belong to the implementation plan, which comes after th
 
 ### Prototype checklist (M1–M3)
 
-- [ ] Wall with 3 sections and HP; enemies walk lanes and attack it
-- [ ] Wave budget spawner reading one `StageData` resource
-- [ ] 20 waves in 4 phases with a visible phase bar
-- [ ] Regroup screen: formation, towers, scout preview
-- [ ] Triangle math and 60% healing verified by tests
-- [ ] Flank, keep strike, siege and boss milestone waves
-- [ ] One hero tap skill and the cavalry sortie, each with a cooldown
+- [x] Wall with 3 sections and HP; enemies walk lanes and attack it
+- [x] Wave budget spawner reading one `StageData` resource
+- [x] 20 waves in 4 phases with a visible phase bar
+- [x] Regroup screen: formation, towers, scout preview
+- [x] Triangle math and 60% healing verified by tests
+- [x] Flank, keep strike, siege and boss milestone waves
+- [x] One hero tap skill and the cavalry sortie, each with a cooldown
 - [ ] 200 enemies at 60 fps on a mid-range phone
 
 ### Scope risks
