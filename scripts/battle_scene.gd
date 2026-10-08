@@ -67,6 +67,8 @@ func _build_result_panel() -> void:
 	add_child(layer)
 	result_panel = PanelContainer.new()
 	result_panel.set_anchors_preset(Control.PRESET_CENTER)
+	result_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	result_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
 	result_panel.visible = false
 	layer.add_child(result_panel)
 	var box := VBoxContainer.new()
